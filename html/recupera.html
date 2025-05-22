@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alteração de Password</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-box login">
+            <form action="../php/function.php" method="post">
+                <h1>Alteração de Password</h1>
+                <div class="input-box">
+                    <label for="email">Insira o email que está associado a conta.</label>
+                    <input type="text" placeholder="Email" id="email" name="email" required>
+                </div>
+                <div class="input-box">
+                    <input type="password" placeholder="Palavra Passe" id="password" name="password" required>
+                    <i class="bx bxs-lock-alt"></i>
+                    <button class="passBtn"></button>
+                </div>
+                <div class="forgot-link">
+                    <a href="#">Esqueceu-se da palavra-passe?</a>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+        </div>
+
+    </div>
+    
+    <script src="../js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-box login">
+            <form action="../php/login.php" method="post">
+                <h1>Login</h1>
+                <div class="input-box">
+                    <input type="text" placeholder="Email" id="email" name="email" required>
+                    <i class="bx bxs-envelope"></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" placeholder="Palavra Passe" id="password" name="password" required>
+                    <i class="bx bxs-lock-alt"></i>
+                    <button class="passBtn"></button>
+                </div>
+                <div class="forgot-link">
+                    <a href="#">Esqueceu-se da palavra-passe?</a>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+        </div>
+        <div class="form-box registo">
+            <form action="../php/registaUtilizadores.php" method="post">
+                <h1>Registo</h1>
+                <div class="input-box">
+                    <input type="text" placeholder="Insira o nome completo" id="nome" name="nome" required>
+                    <i class="bx bxs-user"></i>
+                </div>
+                <div class="input-box">
+                    <input type="email" placeholder="Insira o email" id="email" name="email" required>
+                    <i class="bx bxs-envelope"></i>
+                </div>
+                <div class="input-box">
+                    <input type="text" placeholder="Insira o seu cargo" id="cargo" name="cargo" required>
+                    <i class='bx bxs-user-badge'></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" placeholder="Palavra Passe" id="password" name="password" required>
+                    <i class="bx bxs-lock-alt"></i>
+                </div>
+                <div class="forgot-link">
+                    <a href="#">Já tem conta? Entre agora</a>
+                </div>
+                <button type="submit" class="btn">Registo</button>
+            </form>
+        </div>
+
+        <div class="toggle-box">
+            <div class="toggle-panel toggle-left">
+                <h1>Bem-Vindo de volta!</h1>
+                <p>Não tem conta?</p>
+                <button class="btn registo-btn">Registo</button>
+            </div>
+            <div class="toggle-panel toggle-right">
+                <h1>Bem-Vindo</h1>
+                <p>Já tem conta?</p>
+                <button class="btn login-btn">Login</button>
+            </div>
+        </div>
+
+    </div>
+    
+    <script src="../js/script.js"></script>
+</body>
+</html>
