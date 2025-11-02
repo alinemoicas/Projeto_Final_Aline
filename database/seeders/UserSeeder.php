@@ -36,7 +36,7 @@ class UserSeeder extends Seeder
             'role' => 'admin'
         ]);
 
-        Funcionario::create([
+        /*Funcionario::create([
             'nome' => 'Aline',
             'sobrenome'=> 'Moicas',
             'telefone' => '(+244) 923 000 100',
@@ -48,6 +48,6 @@ class UserSeeder extends Seeder
             'categoria'=> 'Tecnico Superior',
             'estado' => 'activo',
             'user_id' => $user->id
-        ]);
+        ]);*/
     }
 }

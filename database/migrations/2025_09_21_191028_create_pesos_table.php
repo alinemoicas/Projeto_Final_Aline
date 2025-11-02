@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-    Schema::create('pesos', function (Blueprint $table) {
-    $table->id();
-    $table->foreignId('criterio_id')->constrained('criterios')->onDelete('cascade');
-    $table->decimal('valor', 5, 2); // em percentagem
-    $table->timestamps();
-});
-
+        Schema::create('pesos', function (Blueprint $table) {
+            $table->id();
+            $table->decimal('valor', 5, 2); // exemplo: 0.20 = 20% ou escala 1-5
+            $table->string('descricao')->nullable(); // opcional: "Muito Baixo", "Alto", etc.
+            $table->timestamps();
+        });
     }
 
     /**

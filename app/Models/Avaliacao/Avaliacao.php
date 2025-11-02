@@ -7,40 +7,46 @@ use App\Models\Funcionario;
 
 class Avaliacao extends Model
 {
-    // Nome correto da tabela
     protected $table = 'avaliacoes';
 
     protected $fillable = [
-        'funcionario_id',
-        'avaliador_id',
+        'funcionario_id',   // avaliado
+        'avaliador_id',     // chefe
         'data',
         'descricao',
     ];
 
+    /**
+     * Funcionário avaliado
+     */
     public function funcionario()
     {
         return $this->belongsTo(Funcionario::class, 'funcionario_id');
     }
 
+    /**
+     * Chefe avaliador
+     */
     public function avaliador()
     {
         return $this->belongsTo(Funcionario::class, 'avaliador_id');
     }
 
-    public function avaliado()
-    {
-    return $this->belongsTo(Funcionario::class, 'avaliado_id');
-    }
-
+    /**
+     * Critérios avaliados nesta avaliação
+     */
     public function criterios()
     {
         return $this->belongsToMany(Criterio::class, 'avaliacao_criterios')
-                    ->withPivot('peso_id', 'resultado_id')
+                    ->withPivot('peso_id', 'nota', 'observacao')
                     ->withTimestamps();
     }
 
-    public function resultados()
+    /**
+     * Resultado final consolidado
+     */
+    public function resultado()
     {
-        return $this->hasMany(Resultado::class);
+        return $this->hasOne(Resultado::class);
     }
 }

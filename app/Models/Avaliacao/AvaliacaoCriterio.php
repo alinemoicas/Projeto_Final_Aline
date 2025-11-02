@@ -12,26 +12,31 @@ class AvaliacaoCriterio extends Model
         'avaliacao_id',
         'criterio_id',
         'peso_id',
-        'resultado_id',
+        'nota',
+        'observacao',
     ];
 
+    /**
+     * Relacionamento com Avaliação
+     */
     public function avaliacao()
     {
         return $this->belongsTo(Avaliacao::class);
     }
 
+    /**
+     * Relacionamento com Critério
+     */
     public function criterio()
     {
         return $this->belongsTo(Criterio::class);
     }
 
+    /**
+     * Relacionamento com Peso
+     */
     public function peso()
     {
         return $this->belongsTo(Peso::class);
-    }
-
-    public function resultado()
-    {
-        return $this->belongsTo(Resultado::class);
     }
 }

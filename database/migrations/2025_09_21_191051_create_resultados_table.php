@@ -11,15 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('resultados', function (Blueprint $table) 
-        {
+        Schema::create('resultados', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('avaliacao_id')->constrained('avaliacoes')->onDelete('cascade');
-            $table->decimal('pontuacao_final', 6, 2);
-            $table->string('classificacao')->nullable(); // Excelente, Bom, Regular, etc.
+
+            // Relações
+            $table->foreignId('tarefa_id')->constrained('tarefas')->onDelete('cascade');
+            $table->foreignId('departamento_id')->constrained('departamentos')->onDelete('cascade');
+            $table->foreignId('funcionario_id')->constrained('funcionarios')->onDelete('cascade');
+            $table->foreignId('gestor_id')->nullable()->constrained('funcionarios')->onDelete('set null');
+
+            // Dados do resultado
+            $table->string('report_file')->nullable(); // ficheiro em disco
+            $table->longText('report')->nullable();   // conteúdo textual
+            $table->text('comentario')->nullable();   // observações
+
             $table->timestamps();
         });
-
     }
 
     /**

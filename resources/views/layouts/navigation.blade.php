@@ -2,7 +2,6 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             
-            <!-- Logo -->
             <div class="flex">
                 <div class="container mx-auto flex items-center justify-between px-4 py-3">
                     <a href="{{ route('dashboard') }}" class="flex items-center space-x-3">
@@ -12,7 +11,6 @@
                 </div>
             </div>
 
-            <!-- Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="56">
                     <x-slot name="trigger">
@@ -48,14 +46,14 @@
                             {{ __('Departamentos') }}
                         </x-dropdown-link>
 
-                        <x-dropdown-link :href="route('cargo.index')" class="flex items-center">
+                        <x-dropdown-link :href="route('cargos.index')" class="flex items-center">
                             <svg class="h-4 w-4 text-gray-500 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 1.657-1.343 3-3 3S6 12.657 6 11s1.343-3 3-3 3 1.343 3 3zM6 19v-2a4 4 0 014-4h0a4 4 0 014 4v2H6z" />
                             </svg>
                             {{ __('Cargos') }}
                         </x-dropdown-link>
 
-                        <x-dropdown-link :href="route('tarefa.index')" class="flex items-center">
+                        <x-dropdown-link :href="route('tarefas.index')" class="flex items-center">
                             <svg class="h-4 w-4 text-gray-500 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m2 8H7a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v12a2 2 0 01-2 2z" />
                             </svg>

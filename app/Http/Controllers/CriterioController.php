@@ -13,10 +13,51 @@ class CriterioController extends Controller
         return view('criterios.index', compact('criterios'));
     }
 
+    public function create()
+    {
+        return view('criterios.create');
+    }
+
     public function store(Request $request)
     {
-        $request->validate(['nome' => 'required|string|max:255']);
-        Criterio::create($request->all());
-        return back()->with('success', 'Critério criado.');
+        $validated = $request->validate([
+            'nome' => 'required|string|max:255',
+            'descricao' => 'nullable|string',
+        ]);
+
+        Criterio::create($validated);
+
+        return redirect()->route('criterios.index')
+                         ->with('success', 'Critério criado com sucesso.');
+    }
+
+    public function edit(Criterio $criterio)
+    {
+        return view('criterios.edit', compact('criterio'));
+    }
+
+    public function update(Request $request, Criterio $criterio)
+    {
+        $validated = $request->validate([
+            'nome' => 'required|string|max:255',
+            'descricao' => 'nullable|string',
+        ]);
+
+        $criterio->update($validated);
+
+        return redirect()->route('criterios.index')
+                         ->with('success', 'Critério actualizado com sucesso.');
+    }
+
+    public function destroy(Criterio $criterio)
+    {
+        try {
+            $criterio->delete();
+            return redirect()->route('criterios.index')
+                             ->with('success', 'Critério eliminado com sucesso.');
+        } catch (\Exception $e) {
+            return redirect()->route('criterios.index')
+                             ->with('error', 'Erro ao eliminar critério.');
+        }
     }
 }

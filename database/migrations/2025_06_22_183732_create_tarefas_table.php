@@ -13,18 +13,24 @@ return new class extends Migration
     {
         Schema::create('tarefas', function (Blueprint $table) {
             $table->id();
-            $table->text('descricao_taf');
-            $table->unsignedBigInteger('funcionario_id');
-            $table->string('titulo_taf');
-            $table->date('data_inicio')->nullable();
-            $table->date('data_fim')->nullable();
-            $table->string('importancia_taref')->default('Alta');
-            $table->string('estado_tarefa')->nullable();
-            $table->unsignedBigInteger('avaliacao_id')->nullable();
-            #$table->timestamps();
 
-            $table->foreign('funcionario_id')->references('id')->on('funcionarios')->cascadeOnDelete();
-            $table->foreign('avaliacao_id')->references('id')->on('avaliacao')->nullOnDelete();
+            // Dados principais
+            $table->string('titulo_tarefa', 255);
+            $table->text('descricao_taf')->nullable();
+
+            // Relações
+            $table->foreignId('departamento_id')->constrained('departamentos')->onDelete('cascade');
+            $table->foreignId('gestor_id')->nullable()->constrained('funcionarios')->onDelete('set null');
+
+            // Gestão de prazos e nível
+            $table->integer('dias_paraCompletar')->nullable();
+            $table->date('data_limite')->nullable();
+            $table->integer('numero_de_nivel')->default(1);
+
+            // // Estado e importância
+            // $table->enum('importancia_tarefa', ['Muito Alto', 'Alto', 'Média', 'Baixo', 'Muito Baixo'])->default('Média');
+            // $table->enum('estado_tarefa', ['Pendente', 'Em Andamento', 'Concluída', 'Atrasada'])->default('Pendente');
+
             $table->timestamps();
         });
     }
@@ -34,6 +40,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('tarefas');
+        Schema::enableForeignKeyConstraints();
     }
 };

@@ -10,12 +10,12 @@ class CargoController extends Controller
     public function index()
     {
         $cargos = Cargo::all();
-        return view('cargo.index', compact('cargos'));
+        return view('admin.cargos.index', compact('cargos'));
     }
 
     public function create()
     {
-        return view('cargo.create');
+        return view('admin.cargos.create');
     }
 
     public function store(Request $request)
@@ -26,19 +26,19 @@ class CargoController extends Controller
         ]);
 
         Cargo::create($request->all());
-        return redirect()->route('cargo.index')->with('success', 'Cargo adicionado com sucesso.');
+        return redirect()->route('admin.cargos.index')->with('success', 'Cargo adicionado com sucesso.');
     }
 
     public function show($id)
     {
         $cargo = Cargo::findOrFail($id);
-        return view('cargo.show', compact('cargo'));
+        return view('admin.cargos.show', compact('cargo'));
     }
 
     public function edit($id)
     {
         $cargo = Cargo::findOrFail($id);
-        return view('cargo.edit', compact('cargo'));
+        return view('admin.cargos.edit', compact('cargo'));
     }
 
     public function update(Request $request, $id)
@@ -51,12 +51,12 @@ class CargoController extends Controller
         ]);
 
         $cargo->update($request->all());
-        return redirect()->route('cargo.index')->with('success', 'Cargo actualizado com sucesso.');
+        return redirect()->route('cargos.index')->with('success', 'Cargo actualizado com sucesso.');
     }
 
     public function destroy($id)
     {
         Cargo::destroy($id);
-        return redirect()->route('cargo.index')->with('success', 'Cargo removido com sucesso.');
+        return redirect()->route('cargos.index')->with('success', 'Cargo removido com sucesso.');
     }
 }

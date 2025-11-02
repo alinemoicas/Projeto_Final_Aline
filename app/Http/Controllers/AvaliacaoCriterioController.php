@@ -12,6 +12,8 @@ class AvaliacaoCriterioController extends Controller
         $request->validate([
             'avaliacao_id' => 'required|exists:avaliacoes,id',
             'criterio_id'  => 'required|exists:criterios,id',
+            /*'peso_id'      => 'required|exists:pesos,id',
+            'resultado_id' => 'required|exists:pesos,id',*/
             'nota'         => 'required|numeric|min:0|max:20',
         ]);
 

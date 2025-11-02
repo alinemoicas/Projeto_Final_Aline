@@ -1,0 +1,112 @@
+@extends('layouts.app')
+
+@section('content')
+
+<div class="container mx-auto px-4 mt-8">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Lista de Tarefas</h2>
+
+    @if (session('success'))
+        <div class="mb-4 rounded-lg bg-green-100 p-4 text-green-700 shadow">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if($tarefas->count())
+        <div class="overflow-x-auto">
+            <table class="min-w-full border border-gray-200 bg-white rounded-lg shadow-md">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Título</th>
+                        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Funcionário</th>
+                        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Estado</th>
+                        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Importância</th>
+                        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($tarefas as $tarefa)
+                        <tr class="border-t hover:bg-gray-50">
+                            <td class="px-4 py-2 text-gray-800">{{ $tarefa->titulo_taf }}</td>
+                            <td class="px-4 py-2 text-gray-800">{{ $tarefa->funcionario->nome ?? '-' }}</td>
+                            <td class="px-4 py-2">
+                                @if ($tarefa->estado_tarefa === 'pendente')
+                                    <span class="rounded-full bg-yellow-100 px-3 py-1 text-xs font-medium text-yellow-800">
+                                        Pendente
+                                    </span>
+                                @elseif ($tarefa->estado_tarefa === 'em andamento')
+                                    <span class="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800">
+                                        Em Andamento
+                                    </span>
+                                @else
+                                    <span class="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-800">
+                                        Concluída
+                                    </span>
+                                @endif
+                            </td>
+                            <td class="px-4 py-2">
+                                <span class="rounded bg-gray-100 px-3 py-1 text-xs font-medium text-gray-800">
+                                    {{ $tarefa->importancia_taref }}
+                                </span>
+                            </td>
+
+                            {{-- BOTÕES DE AÇÃO --}}
+                            <td class="px-4 py-2 text-right">
+                                <div class="flex justify-end items-center gap-2">
+
+                                    {{-- Ver Detalhes --}}
+                                    <a href="{{ route('tarefas.show', $tarefa->id) }}"
+                                       class="rounded bg-blue-600 px-2 py-1 text-white hover:bg-blue-700 text-sm">
+                                        Ver
+                                    </a>
+
+                                    {{-- Editar --}}
+                                    <a href="{{ route('tarefas.edit', $tarefa->id) }}"
+                                       class="rounded bg-yellow-500 px-3 py-1 text-white hover:bg-yellow-600 text-sm">
+                                        Editar
+                                    </a>
+
+                                    {{-- Atribuir tarefa (nova opção) --}}
+                                    @if (Route::has('gestores.tarefas.atribuir'))
+                                        <a href="{{ route('gestores.tarefas.atribuir', $tarefa->id) }}"
+                                           class="rounded bg-purple-600 px-3 py-1 text-white hover:bg-purple-700 text-sm">
+                                            Atribuir
+                                        </a>
+                                    @elseif (Route::has('gestores.tarefas.atribuir'))
+                                        {{-- fallback se o prefixo for singular --}}
+                                        <a href="{{ route('gestor.tarefas.assign-tarefa', $tarefa->id) }}"
+                                           class="rounded bg-purple-600 px-3 py-1 text-white hover:bg-purple-700 text-sm">
+                                            Atribuir
+                                        </a>
+                                    @endif
+
+                                    {{-- Eliminar --}}
+                                    <form action="{{ route('tarefas.destroy', $tarefa->id) }}" method="POST"
+                                          onsubmit="return confirm('Confirmar eliminação?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                                class="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700 text-sm">
+                                            Eliminar
+                                        </button>
+                                    </form>
+
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    @else
+        <p class="mt-6 text-gray-600">Nenhuma tarefa cadastrada.</p>
+    @endif
+
+    <div class="mt-6">
+        <a href="{{ route('tarefas.create') }}"
+           class="inline-block rounded bg-blue-600 px-4 py-2 text-white shadow hover:bg-blue-700">
+            Criar tarefa nova
+        </a>
+    </div>
+</div>
+
+@endsection

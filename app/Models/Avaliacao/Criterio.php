@@ -17,4 +17,9 @@ class Criterio extends Model
                     ->withPivot('peso_id', 'resultado_id')
                     ->withTimestamps();
     }
+
+      public function pesos()
+    {
+        return $this->hasMany(Peso::class);
+    }
 }
